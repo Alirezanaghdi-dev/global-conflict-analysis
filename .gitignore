@@ -1,0 +1,22 @@
+# Byte-compiled / cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# CatBoost training logs
+catboost_info/
+
+# Trained model artifacts
+models/*.pkl
+
+# Dataset (often too large or private for version control)
+conflict_data.csv
+
+# OS / editor files
+.DS_Store
+.idea/
+.vscode/
