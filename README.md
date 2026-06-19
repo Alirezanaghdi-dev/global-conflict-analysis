@@ -2,7 +2,7 @@
 
 An end-to-end exploratory data analysis (EDA) and machine learning pipeline for
 global conflict and violence data, including regional clustering, statistical
-testing, dimensionality reduction, and a tuned CatBoost regression model.
+testing, dimensionality reduction, and a tuned GradientBoostingRegressor model.
 
 ## What this project does
 
@@ -76,7 +76,7 @@ python conflict_analysis.py
 ```
 
 This will print EDA summaries to the console, display all charts, train and
-compare regression models, tune the best one (CatBoost), and save it to
+compare regression models, tune the best one (GradientBoostingRegressor), and save it to
 `models/best_model.pkl`.
 
 ## Loading the deployed model later
