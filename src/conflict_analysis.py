@@ -646,18 +646,20 @@ def compare_regression_models(X_train_scaled, X_test_scaled, y_train, y_test) ->
 
 
 # ---------------------------------------------------------------------------
-# 10. CatBoost hyperparameter tuning, evaluation, and deployment
+# 10. GradientBoostingRegressor hyperparameter tuning, evaluation, and deployment
 # ---------------------------------------------------------------------------
-def tune_catboost_model(X_train_scaled, y_train) -> RandomizedSearchCV:
-    """Run a randomized hyperparameter search for a CatBoost regressor."""
-    base_model = CatBoostRegressor(verbose=0, random_state=42)
+def tune_gradientboostingregressor_model(X_train_scaled, y_train) -> RandomizedSearchCV:
+    """Run a randomized hyperparameter search for a GradientBoosting Regressor."""
+    base_model = GradientBoostingRegressor(random_state=42)
 
     param_distributions = {
-        "depth": [4, 6, 8, 10],
+        "n_estimators": [100, 200, 500, 1000],
         "learning_rate": [0.01, 0.05, 0.1, 0.2],
-        "iterations": [100, 200, 500, 1000],
-        "l2_leaf_reg": [1, 3, 5, 7, 9],
-        "bagging_temperature": [0, 0.5, 1, 2],
+        "max_depth": [3, 4, 6, 8, 10],
+        "min_samples_split": [2, 5, 10, 20],
+        "min_samples_leaf": [1, 3, 5, 10],
+        "subsample": [0.8, 0.9, 1.0],
+        "max_features": ["sqrt", "log2", None],
     }
 
     random_search = RandomizedSearchCV(
@@ -683,12 +685,12 @@ def evaluate_model(model, X_test_scaled, y_test) -> None:
 
 
 def plot_feature_importance(model, feature_names) -> None:
-    """Plot feature importance scores for a trained CatBoost model."""
-    feature_importance = model.get_feature_importance()
+    """Plot feature importance scores for a trained GradientBoosting Regressor model."""
+    feature_importance = model.feature_importances_
 
     plt.figure(figsize=(10, 6))
     plt.barh(feature_names, feature_importance)
-    plt.title("Feature Importance (CatBoost)")
+    plt.title("Feature Importance (GradientBoosting Regressor)")
     plt.xlabel("Importance")
     plt.ylabel("Features")
     plt.tight_layout()
@@ -786,8 +788,8 @@ def main() -> None:
     print("Model performance comparison:")
     print(pd.DataFrame(model_performance).to_string())
 
-    # 10. CatBoost tuning and deployment
-    random_search = tune_catboost_model(X_train_scaled, y_train)
+    # 10. GradientBoosting Regressor tuning and deployment
+    random_search = tune_gradientboostingregressor_model(X_train_scaled, y_train)
     best_model = random_search.best_estimator_
 
     print("Best parameters found:", random_search.best_params_)
