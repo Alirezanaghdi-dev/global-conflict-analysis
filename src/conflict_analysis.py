@@ -8,7 +8,7 @@ End-to-end pipeline for exploring global conflict/violence data:
   4. Outlier removal and dimensionality reduction (PCA)
   5. Temporal risk analysis
   6. Machine learning model comparison
-  7. Hyperparameter tuning of the best model (CatBoost)
+  7. Hyperparameter tuning of the best model (GradientBoostingRegressor)
   8. Saving ("deploying") the best trained model for reuse
 """
 
